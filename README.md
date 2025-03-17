@@ -1,4 +1,4 @@
-# Java - Juego Adivinar Número
+# Java - Juego adivinar número
 
 Este proyecto es un juego sencillo en Java en el que el usuario debe adivinar un número secreto generado aleatoriamente entre 1 y 100. El juego ofrece 5 intentos para acertar, proporcionando pistas tras cada intento fallido, y una pista adicional en el tercer intento.
 
