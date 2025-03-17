@@ -1,54 +1,56 @@
 import java.util.Scanner;
 
-public class Java_Code {
+public class NumberGuessingGame {
 
-public static void main(String[] args) {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        final int MAX_ATTEMPTS = 5;
+        int secretNumber = (int) (Math.random() * 100) + 1;
+        int guess;
+        boolean acertado = false;
 
- Scanner sc = new Scanner(System.in);
+        System.out.println("El juego consiste en adivinar un nÃºmero secreto entre 1 y 100.");
+        System.out.println("Tienes " + MAX_ATTEMPTS + " intentos para acertar.");
 
- int a = (int) ((Math.random() * 100)+1); // Número aleatorio de 1 a 100.
- int b; // Número introducido por el usuario.
- int i; // Contador para bucle for.
+        // Bucle de intentos
+        for (int attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
+            // Mensaje especial en el Ãºltimo intento
+            if (attempt == MAX_ATTEMPTS) {
+                System.out.print("Oh, oh... ÃšLTIMO intento, escribe un nÃºmero entre 1 y 100: ");
+            } else {
+                System.out.print("Intento " + attempt + ". Escribe un nÃºmero entre 1 y 100: ");
+            }
+            
+            // Leer el nÃºmero introducido
+            guess = sc.nextInt();
 
- System.out.println("El juego consiste en averiguar un número secreto de 100 posibles.");
-
- System.out.print("Tienes 5 intentos. Escribe un número entre 1 y 100: ");
- b = sc.nextInt();
-
- for (i=0; i<=4; i++) { 
-
-    // Primero se evalúa si se ha acertado.
-    
-    if (a == b) {  
-      System.out.println("¡Has acertado!"); 
-      break; } 
-    
-    // Luego da la partida por perdida si ya has gastado 5 intentos.     
-    
-    else if (i == 4) { 
-      System.out.println("Lo siento: ¡has perdido!. El número era el: " + a); 
-      break; } 
-    
-    // Si no es ninguno de los casos anteriores, comparamos números.
-    
-    else if (a > b) 
-      System.out.println("El número secreto es MAYOR que " + b);
-    else if (a < b)
-      System.out.println("El número secreto es MENOR que " + b);
-
-    // Por último un bucle if que sirve para dar una pista y avisarte de la última oportunidad.
-    
-    if (i <=1) { 
-     System.out.print("Otro intento: "); 
-     b = sc.nextInt(); } 
-    else if (i ==2) { 
-    int x = (int) (a/10);
-    System.out.println("Una pista, la primera cifra es " + x);
-    System.out.print("Inténtalo de nuevo: ");
-    b = sc.nextInt(); } 
-   else if (i >= 3) {
-   System.out.print("Oh, oh... ÚLTIMO intento: ");
-   b = sc.nextInt(); }
+            // Comprobamos si se ha acertado
+            if (guess == secretNumber) {
+                System.out.println("Â¡Felicidades, has acertado!");
+                acertado = true;
+                break;
+            } else {
+                // Si no se ha acertado y no es el Ãºltimo intento, se ofrecen pistas
+                if (attempt < MAX_ATTEMPTS) {
+                    if (secretNumber > guess) {
+                        System.out.println("El nÃºmero secreto es MAYOR que " + guess);
+                    } else {
+                        System.out.println("El nÃºmero secreto es MENOR que " + guess);
+                    }
+                    
+                    // Proporcionamos una pista extra en el tercer intento
+                    if (attempt == 3) {
+                        String secretStr = Integer.toString(secretNumber);
+                        char primeraCifra = secretStr.charAt(0);
+                        System.out.println("Pista: La primera cifra del nÃºmero secreto es " + primeraCifra);
+                    }
+                } else {
+                    // Ãšltimo intento fallido: mostramos el nÃºmero secreto
+                    System.out.println("Lo siento, has agotado tus intentos. El nÃºmero secreto era: " + secretNumber);
+                }
+            }
+        }
+        
+        sc.close();
     }
-  }
 }
